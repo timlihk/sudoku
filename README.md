@@ -59,3 +59,22 @@ npm test
 ```
 
 The generator uses a completed-grid shuffle (bands, stacks, digits, transpose) then punches holes while proving uniqueness with an MRV bitmask solver.
+
+## Google SEO
+
+On-page pieces are already deployed with the site:
+
+- `https://soduku.net/robots.txt` — allows crawlers, points at the sitemap
+- `https://soduku.net/sitemap.xml` — Play, Print, Solver, How to play
+- Canonical URLs (apex, no `.html`), `www` → apex 301
+- Open Graph + Twitter card + `og.png` (1200×630)
+- JSON-LD (`WebSite` / `WebApplication` / `FAQPage`)
+
+**The one thing Google still needs from you** is Search Console ownership, once:
+
+1. Open [Google Search Console](https://search.google.com/search-console) as the Google account you want as owner.
+2. Add a **URL prefix** property: `https://soduku.net`
+3. Pick **HTML tag** verification and paste the `google-site-verification` content here — I’ll drop it into `index.html` and redeploy. DNS TXT on the Cloudflare zone works too.
+4. After it verifies: **Sitemaps → Add sitemap** → `https://soduku.net/sitemap.xml`
+
+Indexing a new domain usually takes days, not minutes. Print and How to play are the pages most likely to rank for “printable sudoku” / “how to play sudoku”; the game itself is a thin competitor to sudoku.com until it has some links.

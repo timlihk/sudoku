@@ -10,7 +10,8 @@ export CLOUDFLARE_ACCOUNT_ID="$ACCOUNT_ID"
 STAGE="$(mktemp -d)"
 trap 'rm -rf "$STAGE"' EXIT
 
-cp index.html printable.html solver.html how-to-play.html favicon.svg _headers _redirects "$STAGE/"
+cp index.html printable.html solver.html how-to-play.html favicon.svg og.png apple-touch-icon.png \
+  robots.txt sitemap.xml _headers _redirects "$STAGE/"
 cp -r css js "$STAGE/"
 
 echo "Deploying $PROJECT from staged assets..."
