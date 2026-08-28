@@ -268,17 +268,18 @@ function renderChrome() {
   );
   els.statWon.textContent = String(totalWon);
   els.statStreak.textContent = String(state.stats.streak || 0);
-  els.dailyDate.textContent = new Date().toLocaleDateString(undefined, {
-    weekday: "long",
-    month: "long",
-    day: "numeric",
-  });
   const today = dateKey();
-  const dailyBtn = document.getElementById("btn-daily");
+  const dailyKicker = document.querySelector(".rail-daily span");
   if (state.stats.dailyWins?.[today]) {
-    dailyBtn.textContent = `Solved today · ${formatTime(state.stats.dailyWins[today])}`;
+    if (dailyKicker) dailyKicker.textContent = "Solved today";
+    els.dailyDate.textContent = formatTime(state.stats.dailyWins[today]);
   } else {
-    dailyBtn.textContent = "Play today’s puzzle";
+    if (dailyKicker) dailyKicker.textContent = "Today’s daily";
+    els.dailyDate.textContent = new Date().toLocaleDateString(undefined, {
+      weekday: "long",
+      month: "long",
+      day: "numeric",
+    });
   }
 }
 

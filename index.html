@@ -83,7 +83,6 @@
           <a class="nav-btn" href="./printable.html">Print</a>
           <a class="nav-btn" href="./solver.html">Solver</a>
           <a class="nav-btn" href="./how-to-play.html">How to play</a>
-          <button class="nav-btn" data-open="daily">Daily</button>
           <button class="nav-btn" data-open="stats">Stats</button>
           <button class="icon-btn" data-open="settings" aria-label="Settings">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
@@ -163,48 +162,29 @@
         </section>
 
         <aside class="side">
-          <div class="card">
-            <h2>New game</h2>
-            <p>Six difficulties, each with a unique solution. No guessing required.</p>
-            <div class="actions">
-              <button class="primary" data-open="new">Start a puzzle</button>
+          <button class="primary play-new" data-open="new">New puzzle</button>
+          <div class="rail">
+            <div class="rail-stats">
+              <div class="stat"><span>Won</span><strong id="stat-won">0</strong></div>
+              <div class="stat"><span>Streak</span><strong id="stat-streak">0</strong></div>
             </div>
+            <button class="rail-daily" id="btn-daily" type="button">
+              <span>Today’s daily</span>
+              <strong id="daily-date"></strong>
+            </button>
+            <nav class="rail-links">
+              <a href="./printable.html">Print a paper set</a>
+              <a href="./solver.html">Stuck? Open the solver</a>
+            </nav>
+            <p class="keys">
+              <kbd>1–9</kbd> <kbd>N</kbd> notes · <kbd>H</kbd> hint ·
+              <kbd>U</kbd> undo · <kbd>Esc</kbd> pause
+            </p>
           </div>
           <aside class="ad-unit ad-box no-print" aria-label="Advertisement">
             <span class="ad-kicker">Advertisement</span>
             <div class="ad-frame" data-ad="sidebar"></div>
           </aside>
-          <div class="card">
-            <h2>Print</h2>
-            <p>Five fresh puzzles every day, laid out for A4 or US Letter. Solutions on the last page if you want them.</p>
-            <div class="actions">
-              <a class="ghost" href="./printable.html">Open the print studio</a>
-            </div>
-          </div>
-          <div class="card">
-            <h2>Solver</h2>
-            <p>Enter a stuck grid. We’ll walk the next move and name the technique — not just dump the answer.</p>
-            <div class="actions">
-              <a class="ghost" href="./solver.html">Open the solver</a>
-            </div>
-          </div>
-          <div class="card">
-            <h2>Daily</h2>
-            <p>One shared medium puzzle, reset at midnight local time.</p>
-            <div class="daily-date" id="daily-date"></div>
-            <button class="ghost" id="btn-daily">Play today’s puzzle</button>
-          </div>
-          <div class="card">
-            <h2>Your numbers</h2>
-            <div class="stat-row">
-              <div class="stat"><span>Won</span><strong id="stat-won">0</strong></div>
-              <div class="stat"><span>Streak</span><strong id="stat-streak">0</strong></div>
-            </div>
-            <p class="keys" style="margin-top: 14px">
-              <kbd>1–9</kbd> fill · <kbd>N</kbd> notes · <kbd>H</kbd> hint ·
-              <kbd>U</kbd> undo · <kbd>Esc</kbd> pause
-            </p>
-          </div>
         </aside>
       </div>
 
@@ -214,10 +194,10 @@
       </aside>
 
       <section class="how" id="about">
-        <h2>Play free Sudoku now</h2>
+        <h2>A logic puzzle, not a sum</h2>
         <p>
-          Sudoku is a logic game, not an arithmetic one. Fill the 9×9 grid so that every row,
-          every column, and every 3×3 box contains the digits 1 through 9 — each used once.
+          Fill the 9×9 so every row, column, and 3×3 box holds 1 through 9 once.
+          No arithmetic. The given digits are the only clues you need.
         </p>
         <h3>How to play</h3>
         <p>
