@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Sudoku — play free puzzles</title>
+    <meta
+      name="description"
+      content="Play free Sudoku online. Six difficulties, notes, hints, a daily challenge, and stats — in the browser, no account required."
+    />
+    <meta name="theme-color" content="#f3efe6" />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;1,9..144,500;1,9..144,600&family=Outfit:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/app.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="topbar">
+        <a class="brand" href="./" aria-label="Sudoku home">
+          <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+            <rect width="32" height="32" rx="7" fill="#1a1714" />
+            <g fill="none" stroke="#e7efe9" stroke-width="1.15">
+              <rect x="6" y="6" width="20" height="20" rx="1.5" />
+              <path d="M6 12.67h20M6 19.33h20M12.67 6v20M19.33 6v20" />
+            </g>
+            <rect x="13.15" y="13.15" width="5.7" height="5.7" fill="#0f6e63" />
+          </svg>
+          <span class="brand-name">sudo<em>ku</em></span>
+        </a>
+        <nav class="nav" aria-label="Game">
+          <button class="nav-btn" data-open="daily">Daily</button>
+          <button class="nav-btn" data-open="stats">Stats</button>
+          <button class="nav-btn" data-open="how">How to play</button>
+          <button class="icon-btn" data-open="settings" aria-label="Settings">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <circle cx="12" cy="12" r="3" />
+              <path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M18.4 5.6 17 7M7 17l-1.4 1.4" />
+            </svg>
+          </button>
+        </nav>
+      </header>
+
+      <div class="layout">
+        <section class="play" aria-label="Sudoku board">
+          <div class="play-meta">
+            <div class="meta-group">
+              <button class="diff-btn" data-open="new" id="diff-btn">
+                <span class="diff-kicker">Difficulty</span>
+                <span class="diff-name" id="diff-name">Easy</span>
+              </button>
+            </div>
+            <div class="meta-group">
+              <div class="mistakes" id="mistakes">Mistakes <strong>0/3</strong></div>
+              <button class="timer" id="timer-btn" aria-label="Pause timer">
+                <strong id="timer">0:00</strong>
+              </button>
+            </div>
+          </div>
+
+          <div class="board-wrap" id="board-wrap">
+            <div class="board" id="board" role="grid" aria-label="Sudoku grid"></div>
+            <div class="pause-cover">
+              <button class="primary" id="resume-btn">Resume</button>
+            </div>
+          </div>
+
+          <div class="dock">
+            <div class="tools">
+              <button class="tool" id="btn-undo">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+                  <path d="M9 8H5V4" />
+                  <path d="M5 8a8 8 0 1 1-1.2 8.4" />
+                </svg>
+                <small>Undo</small>
+              </button>
+              <button class="tool" id="btn-erase">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+                  <path d="M4 20h16M7 17 17 7M9 7l-4 4 8 8 4-4" />
+                </svg>
+                <small>Erase</small>
+              </button>
+              <button class="tool" id="btn-notes" aria-pressed="false">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+                  <path d="M5 20h14M7 16V5h10v11" />
+                  <path d="M9 9h6M9 12h4" />
+                </svg>
+                <small>Notes</small>
+              </button>
+              <button class="tool" id="btn-hint">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+                  <path d="M9 18h6M10 22h4" />
+                  <path d="M8 14a6 6 0 1 1 8 0c-1.2 1.1-2 2.4-2 4h-4c0-1.6-.8-2.9-2-4Z" />
+                </svg>
+                <small>Hint</small>
+              </button>
+            </div>
+            <div class="pad" id="pad"></div>
+            <div class="hint-toast" id="hint-toast" role="status"></div>
+          </div>
+        </section>
+
+        <aside class="side">
+          <div class="card">
+            <h2>New game</h2>
+            <p>Six difficulties, each with a unique solution. No guessing required.</p>
+            <div class="actions">
+              <button class="primary" data-open="new">Start a puzzle</button>
+            </div>
+          </div>
+          <div class="card">
+            <h2>Daily</h2>
+            <p>One shared medium puzzle, reset at midnight local time.</p>
+            <div class="daily-date" id="daily-date"></div>
+            <button class="ghost" id="btn-daily">Play today’s puzzle</button>
+          </div>
+          <div class="card">
+            <h2>Your numbers</h2>
+            <div class="stat-row">
+              <div class="stat"><span>Won</span><strong id="stat-won">0</strong></div>
+              <div class="stat"><span>Streak</span><strong id="stat-streak">0</strong></div>
+            </div>
+            <p class="keys" style="margin-top: 14px">
+              <kbd>1–9</kbd> fill · <kbd>N</kbd> notes · <kbd>H</kbd> hint ·
+              <kbd>U</kbd> undo · <kbd>Esc</kbd> pause
+            </p>
+          </div>
+        </aside>
+      </div>
+
+      <section class="how" id="about">
+        <h2>Play free Sudoku now</h2>
+        <p>
+          Sudoku is a logic game, not an arithmetic one. Fill the 9×9 grid so that every row,
+          every column, and every 3×3 box contains the digits 1 through 9 — each used once.
+        </p>
+        <h3>How to play</h3>
+        <p>
+          Some cells are given. Select an empty cell, then tap a number. Use notes to pencil
+          candidates. Auto-check (on by default) flags a digit that doesn’t belong in the
+          finished puzzle. Three mistakes end the round.
+        </p>
+        <h3>Tips</h3>
+        <ul>
+          <li>
+            Start with rows, columns, or boxes that already hold five or more digits. The
+            remaining cells are often naked singles.
+          </li>
+          <li>
+            When a digit appears twice across a band of three boxes, the third copy has only
+            one box left — scan the nine cells there.
+          </li>
+          <li>
+            Pencil marks are cheaper than guesses. Fill notes, then look for hidden singles:
+            a digit that can live in only one cell of a unit.
+          </li>
+        </ul>
+      </section>
+    </div>
+
+    <div class="overlay" id="overlay-new" role="dialog" aria-modal="true" aria-labelledby="new-title">
+      <div class="modal">
+        <div class="modal-head">
+          <h2 id="new-title">Select difficulty</h2>
+          <button class="icon-btn" data-close aria-label="Close">×</button>
+        </div>
+        <p class="lede">Each puzzle has exactly one solution and can be finished by logic alone.</p>
+        <div class="warn" id="dirty-warn" hidden>This replaces the puzzle you are in the middle of.</div>
+        <div class="diff-grid" id="diff-grid"></div>
+      </div>
+    </div>
+
+    <div class="overlay" id="overlay-win" role="dialog" aria-modal="true" aria-labelledby="win-title">
+      <div class="modal">
+        <div class="modal-head">
+          <h2 id="win-title">Solved</h2>
+          <button class="icon-btn" data-close aria-label="Close">×</button>
+        </div>
+        <div class="win-time" id="win-time">0:00</div>
+        <p class="lede" id="win-copy"></p>
+        <div class="actions">
+          <button class="primary" data-open="new">New game</button>
+          <button class="ghost" id="win-daily">Today’s daily</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="overlay" id="overlay-over" role="dialog" aria-modal="true" aria-labelledby="over-title">
+      <div class="modal">
+        <div class="modal-head">
+          <h2 id="over-title">Game over</h2>
+          <button class="icon-btn" data-close aria-label="Close">×</button>
+        </div>
+        <p class="lede">Three mistakes. The round is over — unless you take a second chance.</p>
+        <div class="actions">
+          <button class="primary" id="second-chance">Second chance</button>
+          <button class="ghost" data-open="new">New game</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="overlay" id="overlay-stats" role="dialog" aria-modal="true" aria-labelledby="stats-title">
+      <div class="modal wide">
+        <div class="modal-head">
+          <h2 id="stats-title">Statistics</h2>
+          <button class="icon-btn" data-close aria-label="Close">×</button>
+        </div>
+        <p class="lede" id="stats-lede"></p>
+        <table class="stats-table" id="stats-table"></table>
+      </div>
+    </div>
+
+    <div class="overlay" id="overlay-how" role="dialog" aria-modal="true" aria-labelledby="how-title">
+      <div class="modal">
+        <div class="modal-head">
+          <h2 id="how-title">How to play</h2>
+          <button class="icon-btn" data-close aria-label="Close">×</button>
+        </div>
+        <p>
+          Fill every row, column, and 3×3 box with the digits 1–9. A move is wrong if a digit
+          repeats in any of those three units, or — with auto-check on — if it does not match
+          the unique solution.
+        </p>
+        <p>
+          Select a cell, then a number. Notes mode pencils candidates into a cell. Hints
+          name the next technique (naked single or hidden single) and fill the cell.
+        </p>
+        <p>Keyboard: arrows move, 1–9 fill, Delete erases, N notes, H hint, U undo, Esc pauses.</p>
+      </div>
+    </div>
+
+    <div class="overlay" id="overlay-settings" role="dialog" aria-modal="true" aria-labelledby="set-title">
+      <div class="modal">
+        <div class="modal-head">
+          <h2 id="set-title">Settings</h2>
+          <button class="icon-btn" data-close aria-label="Close">×</button>
+        </div>
+        <div class="toggle-list" id="settings-list"></div>
+        <div class="actions">
+          <button class="ghost" id="fill-notes">Fill notes on empty cells</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="overlay" id="overlay-loading" aria-live="polite">
+      <div class="modal loading-copy">
+        <div class="pulse" aria-hidden="true"></div>
+        <h2>Carving a unique puzzle</h2>
+        <p class="lede">Every board is generated in the browser and checked for a single solution.</p>
+      </div>
+    </div>
+
+    <script type="module" src="./js/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "name": "sudoku",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A free in-browser Sudoku game — six difficulties, notes, daily challenge, and stats.",
+  "scripts": {
+    "start": "python3 -m http.server 8765",
+    "test": "node tests/engine.test.js && node tests/playthrough.test.js"
+  }
+}
