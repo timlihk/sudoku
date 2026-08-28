@@ -2,6 +2,8 @@
 
 A free in-browser Sudoku game in the spirit of [sudoku.com](https://sudoku.com): a 9×9 board, six difficulties, pencil notes, a three-mistake limit, hints that name the technique, a daily puzzle, and local stats.
 
+**Ops / keys / AdSense / Cloudflare:** [docs/OPERATIONS.md](docs/OPERATIONS.md). Vault note: `Obsidian Vault/04-Resources/Infrastructure/soduku.net.md`.
+
 **Live:** [https://soduku.net](https://soduku.net) (Cloudflare Pages, account `tim@timli.net`)
 
 - Play: [soduku.net](https://soduku.net)
