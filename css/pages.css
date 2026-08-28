@@ -133,7 +133,7 @@ html[data-paper="letter"] .paper {
 .solver-layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 320px;
-  gap: 36px;
+  gap: 56px;
   align-items: start;
 }
 

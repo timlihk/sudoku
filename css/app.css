@@ -208,11 +208,23 @@ html[data-theme="dark"] .primary {
 
 .ad-unit {
   display: none;
-  margin: 18px 0;
+  margin: 0;
 }
 
 .ad-unit.is-live {
   display: block;
+}
+
+.ad-top.is-live {
+  margin: 8px 0 40px;
+}
+
+.ad-bottom.is-live {
+  margin: 48px 0 28px;
+}
+
+.side .ad-unit.is-live {
+  margin: 8px 0 28px;
 }
 
 .ad-kicker {
@@ -258,9 +270,13 @@ html[data-theme="dark"] .primary {
 .layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 300px;
-  gap: 36px;
+  gap: 56px;
   align-items: start;
-  margin-top: 18px;
+  margin-top: 12px;
+}
+
+.play {
+  padding-right: 12px;
 }
 
 .play-meta {
@@ -626,7 +642,7 @@ html[data-theme="dark"] .primary {
 }
 
 .how {
-  margin-top: 72px;
+  margin-top: 88px;
   max-width: 720px;
 }
 
@@ -900,11 +916,15 @@ html[data-theme="dark"] .primary {
 @media (max-width: 920px) {
   .layout {
     grid-template-columns: 1fr;
-    gap: 22px;
+    gap: 36px;
+  }
+
+  .play {
+    padding-right: 0;
   }
 
   .side {
-    padding-top: 0;
+    padding-top: 8px;
     max-width: var(--board);
   }
 
@@ -924,8 +944,7 @@ html[data-theme="dark"] .primary {
   .ad-unit.is-live.ad-mobile {
     display: block;
     max-width: var(--board);
-    margin-left: auto;
-    margin-right: auto;
+    margin: 40px auto 8px;
   }
 
   .side .ad-unit.ad-box {
