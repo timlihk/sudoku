@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="google-adsense-account" content="ca-pub-6869218428296242" />
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6869218428296242"
+      crossorigin="anonymous"
+    ></script>
+    <title>Privacy — soduku.net</title>
+    <meta
+      name="description"
+      content="How soduku.net uses cookies, local storage, and Google AdSense."
+    />
+    <link rel="canonical" href="https://soduku.net/privacy" />
+    <meta property="og:title" content="Privacy — soduku.net" />
+    <meta property="og:url" content="https://soduku.net/privacy" />
+    <meta name="theme-color" content="#f3efe6" />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./css/app.css" />
+    <link rel="stylesheet" href="./css/pages.css" />
+  </head>
+  <body data-page="privacy">
+    <div class="app">
+      <header class="topbar">
+        <a class="brand" href="./" aria-label="Sudoku home">
+          <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+            <rect width="32" height="32" rx="7" fill="#1a1714" />
+            <g fill="none" stroke="#e7efe9" stroke-width="1.15">
+              <rect x="6" y="6" width="20" height="20" rx="1.5" />
+              <path d="M6 12.67h20M6 19.33h20M12.67 6v20M19.33 6v20" />
+            </g>
+            <rect x="13.15" y="13.15" width="5.7" height="5.7" fill="#0f6e63" />
+          </svg>
+          <span class="brand-name">sudo<em>ku</em></span>
+        </a>
+        <nav class="nav" aria-label="Site">
+          <a class="nav-btn" href="./">Play</a>
+          <a class="nav-btn" href="./printable.html">Print</a>
+          <a class="nav-btn" href="./solver.html">Solver</a>
+          <a class="nav-btn" href="./how-to-play.html">How to play</a>
+        </nav>
+      </header>
+
+      <section class="page-hero">
+        <h1>Privacy</h1>
+        <p>Last updated 28 August 2026. This site is soduku.net. There is no account to create.</p>
+      </section>
+
+      <article class="guide">
+        <h2>What stays on your device</h2>
+        <p>
+          Game progress, notes, timer, settings, and stats are saved in your browser’s
+          <code>localStorage</code>. That data never leaves your computer. Clearing site
+          data for soduku.net wipes it.
+        </p>
+
+        <h2>Advertising</h2>
+        <p>
+          We use Google AdSense to show display ads. Google and other third-party vendors
+          use cookies and similar technologies to serve ads based on your prior visits to
+          this site and other sites.
+        </p>
+        <ul>
+          <li>
+            Google’s use of advertising cookies is described in
+            <a href="https://policies.google.com/technologies/ads">Google’s advertising policies</a>.
+          </li>
+          <li>
+            You can opt out of personalised Google ads at
+            <a href="https://adssettings.google.com/">adssettings.google.com</a>.
+          </li>
+          <li>
+            You can opt out of interest-based ads from participating companies at
+            <a href="https://www.aboutads.info/choices/">aboutads.info/choices</a>.
+          </li>
+        </ul>
+        <p>
+          Ads on this site are display units in ordinary banner and rectangle slots. We do
+          not ask you to click ads, and we do not run overlays that cover the puzzle.
+        </p>
+
+        <h2>Logs</h2>
+        <p>
+          The site is hosted on Cloudflare. Cloudflare may process standard request logs
+          (IP address, user agent, URL) to operate the network, as described in
+          <a href="https://www.cloudflare.com/privacypolicy/">Cloudflare’s privacy policy</a>.
+        </p>
+
+        <h2>Contact</h2>
+        <p>
+          Questions: <a href="mailto:tim@timli.net">tim@timli.net</a>.
+        </p>
+      </article>
+
+      <footer class="site-foot">
+        <p>soduku.net — free Sudoku.</p>
+        <p>
+          <a href="./">Play</a> ·
+          <a href="./printable.html">Print</a> ·
+          <a href="./solver.html">Solver</a> ·
+          <a href="./how-to-play.html">How to play</a> ·
+          <a href="./privacy.html">Privacy</a>
+        </p>
+      </footer>
+    </div>
+    <script>
+      try {
+        const s = JSON.parse(localStorage.getItem("nines-sudoku-v1") || "{}");
+        document.documentElement.dataset.theme = s.settings?.darkMode ? "dark" : "light";
+      } catch (e) {}
+    </script>
+  </body>
+</html>

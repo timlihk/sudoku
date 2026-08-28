@@ -10,7 +10,7 @@ export CLOUDFLARE_ACCOUNT_ID="$ACCOUNT_ID"
 STAGE="$(mktemp -d)"
 trap 'rm -rf "$STAGE"' EXIT
 
-cp index.html printable.html solver.html how-to-play.html favicon.svg og.png apple-touch-icon.png \
+cp index.html printable.html solver.html how-to-play.html privacy.html favicon.svg og.png apple-touch-icon.png \
   robots.txt sitemap.xml ads.txt _headers _redirects "$STAGE/"
 cp -r css js "$STAGE/"
 

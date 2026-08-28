@@ -24,4 +24,10 @@
     <priority>0.7</priority>
     <lastmod>2026-08-28</lastmod>
   </url>
+  <url>
+    <loc>https://soduku.net/privacy</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <lastmod>2026-08-28</lastmod>
+  </url>
 </urlset>
