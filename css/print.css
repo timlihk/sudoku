@@ -1,0 +1,64 @@
+@page {
+  margin: 12mm;
+}
+
+html[data-paper="a4"] {
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+html[data-paper="a4"] @page {
+  size: A4;
+}
+
+html[data-paper="letter"] @page {
+  size: letter;
+}
+
+.no-print {
+  display: none !important;
+}
+
+body {
+  background: #fff !important;
+  color: #111 !important;
+}
+
+.app {
+  max-width: none;
+  padding: 0;
+  margin: 0;
+}
+
+.paper {
+  box-shadow: none;
+  border-radius: 0;
+  width: auto !important;
+  min-height: 0;
+  padding: 0;
+  margin: 0;
+  page-break-after: always;
+  break-after: page;
+}
+
+.paper:last-child {
+  page-break-after: auto;
+  break-after: auto;
+}
+
+.ink-board {
+  background: #111;
+}
+
+.ink-box {
+  background: #888;
+}
+
+.ink-cell {
+  background: #fff;
+  color: #111;
+}
+
+.paper-brand em {
+  color: #111;
+}

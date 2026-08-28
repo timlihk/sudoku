@@ -862,4 +862,4 @@ function boot() {
   }
 }
 
-boot();
+if (document.body.dataset.page === "play") boot();

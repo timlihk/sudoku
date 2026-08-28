@@ -23,7 +23,7 @@
     />
     <link rel="stylesheet" href="./css/app.css" />
   </head>
-  <body>
+  <body data-page="play">
     <div class="app">
       <header class="topbar">
         <a class="brand" href="./" aria-label="Sudoku home">
@@ -37,10 +37,13 @@
           </svg>
           <span class="brand-name">sudo<em>ku</em></span>
         </a>
-        <nav class="nav" aria-label="Game">
+        <nav class="nav" aria-label="Site">
+          <a class="nav-btn is-on" href="./">Play</a>
+          <a class="nav-btn" href="./printable.html">Print</a>
+          <a class="nav-btn" href="./solver.html">Solver</a>
+          <a class="nav-btn" href="./how-to-play.html">How to play</a>
           <button class="nav-btn" data-open="daily">Daily</button>
           <button class="nav-btn" data-open="stats">Stats</button>
-          <button class="nav-btn" data-open="how">How to play</button>
           <button class="icon-btn" data-open="settings" aria-label="Settings">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
               <circle cx="12" cy="12" r="3" />
@@ -118,6 +121,20 @@
             </div>
           </div>
           <div class="card">
+            <h2>Print</h2>
+            <p>Five fresh puzzles every day, laid out for A4 or US Letter. Solutions on the last page if you want them.</p>
+            <div class="actions">
+              <a class="ghost" href="./printable.html">Open the print studio</a>
+            </div>
+          </div>
+          <div class="card">
+            <h2>Solver</h2>
+            <p>Enter a stuck grid. We’ll walk the next move and name the technique — not just dump the answer.</p>
+            <div class="actions">
+              <a class="ghost" href="./solver.html">Open the solver</a>
+            </div>
+          </div>
+          <div class="card">
             <h2>Daily</h2>
             <p>One shared medium puzzle, reset at midnight local time.</p>
             <div class="daily-date" id="daily-date"></div>
@@ -165,6 +182,16 @@
           </li>
         </ul>
       </section>
+
+      <footer class="site-foot">
+        <p>soduku.net — free Sudoku. No ads, no account.</p>
+        <p>
+          <a href="./">Play</a> ·
+          <a href="./printable.html">Print</a> ·
+          <a href="./solver.html">Solver</a> ·
+          <a href="./how-to-play.html">How to play</a>
+        </p>
+      </footer>
     </div>
 
     <div class="overlay" id="overlay-new" role="dialog" aria-modal="true" aria-labelledby="new-title">

@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en" data-paper="a4">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Printable Sudoku — free daily puzzles at soduku.net</title>
+    <meta
+      name="description"
+      content="Print free Sudoku puzzles every day. Five unique boards, A4 or US Letter, with or without answers. No account."
+    />
+    <link rel="canonical" href="https://soduku.net/printable.html" />
+    <meta property="og:title" content="Printable Sudoku" />
+    <meta property="og:url" content="https://soduku.net/printable.html" />
+    <meta name="theme-color" content="#f3efe6" />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;1,9..144,500;1,9..144,600&family=Outfit:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/app.css" />
+    <link rel="stylesheet" href="./css/pages.css" />
+    <link rel="stylesheet" href="./css/print.css" media="print" />
+  </head>
+  <body data-page="print">
+    <div class="app">
+      <header class="topbar no-print">
+        <a class="brand" href="./" aria-label="Sudoku home">
+          <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+            <rect width="32" height="32" rx="7" fill="#1a1714" />
+            <g fill="none" stroke="#e7efe9" stroke-width="1.15">
+              <rect x="6" y="6" width="20" height="20" rx="1.5" />
+              <path d="M6 12.67h20M6 19.33h20M12.67 6v20M19.33 6v20" />
+            </g>
+            <rect x="13.15" y="13.15" width="5.7" height="5.7" fill="#0f6e63" />
+          </svg>
+          <span class="brand-name">sudo<em>ku</em></span>
+        </a>
+        <nav class="nav" aria-label="Site">
+          <a class="nav-btn" href="./">Play</a>
+          <a class="nav-btn is-on" href="./printable.html">Print</a>
+          <a class="nav-btn" href="./solver.html">Solver</a>
+          <a class="nav-btn" href="./how-to-play.html">How to play</a>
+        </nav>
+      </header>
+
+      <section class="page-hero no-print">
+        <h1>Printable Sudoku</h1>
+        <p>
+          A newspaper page, without the newspaper. Each day we set five unique puzzles —
+          Easy through Master — laid out for real paper. Answers live on the last sheets,
+          in a quieter ink, so you can fold them under.
+        </p>
+      </section>
+
+      <div class="controls no-print">
+        <div class="control">
+          <label>Set</label>
+          <div class="seg" id="mode-seg">
+            <button type="button" data-value="daily" aria-pressed="true">Today’s five</button>
+            <button type="button" data-value="custom" aria-pressed="false">Custom pack</button>
+            <button type="button" data-value="blank" aria-pressed="false">Blank grids</button>
+          </div>
+        </div>
+        <div class="control">
+          <label for="print-date">Date</label>
+          <input class="field" id="print-date" type="date" />
+        </div>
+        <div class="control">
+          <label>Paper</label>
+          <div class="seg" id="paper-seg">
+            <button type="button" data-value="a4" aria-pressed="true">A4</button>
+            <button type="button" data-value="letter" aria-pressed="false">US Letter</button>
+          </div>
+        </div>
+        <div class="control">
+          <label>Per page</label>
+          <div class="seg" id="per-seg">
+            <button type="button" data-value="1" aria-pressed="false">1</button>
+            <button type="button" data-value="2" aria-pressed="true">2</button>
+            <button type="button" data-value="4" aria-pressed="false">4</button>
+            <button type="button" data-value="6" aria-pressed="false">6</button>
+          </div>
+        </div>
+        <div class="control">
+          <label>Answers</label>
+          <div class="seg" id="sol-seg">
+            <button type="button" data-value="yes" aria-pressed="true">Last pages</button>
+            <button type="button" data-value="no" aria-pressed="false">Puzzles only</button>
+          </div>
+        </div>
+        <div class="control" id="custom-controls" hidden>
+          <label>Custom</label>
+          <div class="seg" id="diff-seg">
+            <button type="button" data-value="easy" aria-pressed="false">Easy</button>
+            <button type="button" data-value="medium" aria-pressed="true">Medium</button>
+            <button type="button" data-value="hard" aria-pressed="false">Hard</button>
+            <button type="button" data-value="expert" aria-pressed="false">Expert</button>
+            <button type="button" data-value="master" aria-pressed="false">Master</button>
+            <button type="button" data-value="extreme" aria-pressed="false">Extreme</button>
+          </div>
+          <p style="margin: 8px 0 0">
+            <label for="print-count" class="sr-only">How many</label>
+            <input class="field" id="print-count" type="number" min="1" max="12" value="4" />
+            puzzles
+          </p>
+        </div>
+        <div class="control control-actions">
+          <button class="primary" id="btn-print" type="button">Print</button>
+          <button class="ghost" id="btn-refresh" type="button">Regenerate</button>
+        </div>
+      </div>
+
+      <p class="studio-note no-print" id="status">Setting type…</p>
+      <div id="sheets"></div>
+
+      <section class="how no-print" id="about-print">
+        <h2>Free printable Sudoku, every day</h2>
+        <p>
+          Sudoku.com hands you five puzzles a day on a cramped PDF. Same idea here — Easy,
+          Medium, Hard, Expert, Master — but the page is designed for a pencil: thick 3×3
+          rules, quiet answers, A4 or Letter, one to six grids a sheet.
+        </p>
+        <p>
+          Every board is generated in your browser and checked for a single solution. The
+          daily set is seeded by the calendar date, so a classroom can print the same five
+          puzzles. Pick an older date for the archive. No account, no watermark farm.
+        </p>
+      </section>
+
+      <footer class="site-foot no-print">
+        <p>soduku.net — free Sudoku. No ads, no account.</p>
+        <p>
+          <a href="./">Play</a> ·
+          <a href="./printable.html">Print</a> ·
+          <a href="./solver.html">Solver</a> ·
+          <a href="./how-to-play.html">How to play</a>
+        </p>
+      </footer>
+    </div>
+    <script type="module" src="./js/print.js"></script>
+  </body>
+</html>

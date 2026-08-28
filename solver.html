@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Sudoku Solver — step-by-step at soduku.net</title>
+    <meta
+      name="description"
+      content="A Sudoku solver that names the technique. Enter a puzzle, step through naked and hidden singles, or reveal a unique solution."
+    />
+    <link rel="canonical" href="https://soduku.net/solver.html" />
+    <meta property="og:title" content="Sudoku Solver" />
+    <meta property="og:url" content="https://soduku.net/solver.html" />
+    <meta name="theme-color" content="#f3efe6" />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;1,9..144,500;1,9..144,600&family=Outfit:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/app.css" />
+    <link rel="stylesheet" href="./css/pages.css" />
+  </head>
+  <body data-page="solver">
+    <div class="app">
+      <header class="topbar">
+        <a class="brand" href="./" aria-label="Sudoku home">
+          <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+            <rect width="32" height="32" rx="7" fill="#1a1714" />
+            <g fill="none" stroke="#e7efe9" stroke-width="1.15">
+              <rect x="6" y="6" width="20" height="20" rx="1.5" />
+              <path d="M6 12.67h20M6 19.33h20M12.67 6v20M19.33 6v20" />
+            </g>
+            <rect x="13.15" y="13.15" width="5.7" height="5.7" fill="#0f6e63" />
+          </svg>
+          <span class="brand-name">sudo<em>ku</em></span>
+        </a>
+        <nav class="nav" aria-label="Site">
+          <a class="nav-btn" href="./">Play</a>
+          <a class="nav-btn" href="./printable.html">Print</a>
+          <a class="nav-btn is-on" href="./solver.html">Solver</a>
+          <a class="nav-btn" href="./how-to-play.html">How to play</a>
+        </nav>
+      </header>
+
+      <section class="page-hero">
+        <h1>Solver</h1>
+        <p>
+          Sudoku.com’s solver dumps the finished grid. Ours walks the next logical move
+          and tells you why — naked single, hidden single, then a unique-solution fill
+          if the human techniques run out. Use it to learn, not to skip the puzzle.
+        </p>
+      </section>
+
+      <div class="solver-layout">
+        <section>
+          <p class="solver-status" id="solver-status"></p>
+          <div class="solver-board-wrap">
+            <div class="board" id="solver-board" role="grid" aria-label="Solver grid"></div>
+          </div>
+          <div class="dock" style="width: var(--board); margin-top: 14px">
+            <div class="pad" id="solver-pad">
+              <button class="pad-btn" data-d="1" type="button"><span class="n">1</span></button>
+              <button class="pad-btn" data-d="2" type="button"><span class="n">2</span></button>
+              <button class="pad-btn" data-d="3" type="button"><span class="n">3</span></button>
+              <button class="pad-btn" data-d="4" type="button"><span class="n">4</span></button>
+              <button class="pad-btn" data-d="5" type="button"><span class="n">5</span></button>
+              <button class="pad-btn" data-d="6" type="button"><span class="n">6</span></button>
+              <button class="pad-btn" data-d="7" type="button"><span class="n">7</span></button>
+              <button class="pad-btn" data-d="8" type="button"><span class="n">8</span></button>
+              <button class="pad-btn" data-d="9" type="button"><span class="n">9</span></button>
+            </div>
+          </div>
+        </section>
+        <aside class="side" style="padding-top: 0">
+          <div class="card">
+            <h2>Walk the grid</h2>
+            <p>Step places one digit and names the technique. Solve all fills the unique solution, logging every move.</p>
+            <div class="actions">
+              <button class="primary" id="btn-step" type="button">Step</button>
+              <button class="ghost" id="btn-solve" type="button">Solve all</button>
+            </div>
+            <div class="actions">
+              <button class="ghost" id="btn-candidates" type="button" aria-pressed="false">Candidates</button>
+              <button class="ghost" id="btn-erase" type="button">Erase cell</button>
+              <button class="ghost" id="btn-clear" type="button">Clear</button>
+            </div>
+          </div>
+          <div class="card">
+            <h2>Paste a puzzle</h2>
+            <p>81 characters, row by row. Use <code>0</code> or <code>.</code> for empty cells.</p>
+            <p>
+              <textarea class="paste" id="paste" spellcheck="false" placeholder="530070000600195000…"></textarea>
+            </p>
+            <div class="actions">
+              <button class="ghost" id="btn-paste" type="button">Load paste</button>
+              <button class="ghost" id="btn-example" type="button">Load example</button>
+              <button class="ghost" id="btn-copy" type="button">Copy</button>
+            </div>
+          </div>
+          <ol class="step-log" id="step-log"></ol>
+        </aside>
+      </div>
+
+      <section class="how" id="about-solver">
+        <h2>How the solver works</h2>
+        <p>
+          Everything runs in your browser. We first look for a naked single (one candidate
+          left in a cell) or a hidden single (a digit that can live in only one cell of a
+          house). If the puzzle is uniquely solvable but those run out, the next fill comes
+          from the unique solution — labelled Reveal — so you can see where the logic jumped.
+        </p>
+        <p>
+          If the clues conflict, or if two different completions exist, the solver stops
+          and says so. A proper Sudoku has exactly one answer.
+        </p>
+      </section>
+
+      <footer class="site-foot">
+        <p>soduku.net — free Sudoku. No ads, no account.</p>
+        <p>
+          <a href="./">Play</a> ·
+          <a href="./printable.html">Print</a> ·
+          <a href="./solver.html">Solver</a> ·
+          <a href="./how-to-play.html">How to play</a>
+        </p>
+      </footer>
+    </div>
+    <script type="module" src="./js/solver.js"></script>
+  </body>
+</html>

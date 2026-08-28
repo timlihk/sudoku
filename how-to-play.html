@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>How to play Sudoku — soduku.net</title>
+    <meta
+      name="description"
+      content="Sudoku rules, beginner tips, and the two techniques that unlock most puzzles: naked singles and hidden singles."
+    />
+    <link rel="canonical" href="https://soduku.net/how-to-play.html" />
+    <meta property="og:title" content="How to play Sudoku" />
+    <meta property="og:url" content="https://soduku.net/how-to-play.html" />
+    <meta name="theme-color" content="#f3efe6" />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;1,9..144,500;1,9..144,600&family=Outfit:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/app.css" />
+    <link rel="stylesheet" href="./css/pages.css" />
+  </head>
+  <body data-page="how">
+    <div class="app">
+      <header class="topbar">
+        <a class="brand" href="./" aria-label="Sudoku home">
+          <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+            <rect width="32" height="32" rx="7" fill="#1a1714" />
+            <g fill="none" stroke="#e7efe9" stroke-width="1.15">
+              <rect x="6" y="6" width="20" height="20" rx="1.5" />
+              <path d="M6 12.67h20M6 19.33h20M12.67 6v20M19.33 6v20" />
+            </g>
+            <rect x="13.15" y="13.15" width="5.7" height="5.7" fill="#0f6e63" />
+          </svg>
+          <span class="brand-name">sudo<em>ku</em></span>
+        </a>
+        <nav class="nav" aria-label="Site">
+          <a class="nav-btn" href="./">Play</a>
+          <a class="nav-btn" href="./printable.html">Print</a>
+          <a class="nav-btn" href="./solver.html">Solver</a>
+          <a class="nav-btn is-on" href="./how-to-play.html">How to play</a>
+        </nav>
+      </header>
+
+      <section class="page-hero">
+        <h1>How to play</h1>
+        <p>Sudoku is placement, not arithmetic. The only numbers that matter are 1 through 9, and the only rule is: don’t repeat them.</p>
+      </section>
+
+      <article class="guide">
+        <h2>The rules</h2>
+        <p>
+          Fill the 9×9 grid so that every <strong>row</strong>, every <strong>column</strong>,
+          and every <strong>3×3 box</strong> contains the digits 1–9, each used once. Some
+          cells are given. You never need to add or multiply — only to notice where a digit
+          is still allowed.
+        </p>
+        <p>A move is wrong if any house (row, column, or box) contains the same digit twice.</p>
+
+        <h2>How a game on soduku.net works</h2>
+        <ul>
+          <li>Select a cell, then a number — or pick a number first and stamp it into empty cells.</li>
+          <li><strong>Notes</strong> pencils candidates into a cell. <kbd>N</kbd> toggles that mode.</li>
+          <li>Auto-check (on by default) paints a digit red if it doesn’t belong in the unique solution. Three mistakes end the round; you can take a second chance.</li>
+          <li><strong>Hint</strong> names the next technique and fills the cell.</li>
+        </ul>
+
+        <h2>Techniques that actually matter</h2>
+        <div class="tech-grid">
+          <div class="tech">
+            <h3>Naked single</h3>
+            <p>
+              A cell has only one candidate left: every other digit already lives in its
+              row, column, or box. Place it. Easy puzzles are almost all of these.
+            </p>
+          </div>
+          <div class="tech">
+            <h3>Hidden single</h3>
+            <p>
+              Inside one house, a digit can go in only one remaining cell — even if that
+              cell still has other candidates. The digit is hidden among the notes. Place it.
+            </p>
+          </div>
+          <div class="tech">
+            <h3>The “third box”</h3>
+            <p>
+              If a digit already appears in two of the three boxes in a band, the third
+              copy must sit in the remaining box. Scan those nine cells.
+            </p>
+          </div>
+        </div>
+
+        <h2>Beginner habits</h2>
+        <ul>
+          <li>Start with houses that already hold five or more givens. The leftovers are often singles.</li>
+          <li>Pencil marks are cheaper than guesses. Fill notes, then hunt hidden singles.</li>
+          <li>Don’t guess on this site’s puzzles — every board has one solution and can be finished by logic.</li>
+        </ul>
+
+        <h2>Elsewhere on the site</h2>
+        <p>
+          <a href="./">Play</a> a timed game with six difficulties.
+          <a href="./printable.html">Print</a> today’s five puzzles for paper.
+          <a href="./solver.html">Solver</a> walks a stuck grid one named move at a time.
+        </p>
+      </article>
+
+      <footer class="site-foot">
+        <p>soduku.net — free Sudoku. No ads, no account.</p>
+        <p>
+          <a href="./">Play</a> ·
+          <a href="./printable.html">Print</a> ·
+          <a href="./solver.html">Solver</a> ·
+          <a href="./how-to-play.html">How to play</a>
+        </p>
+      </footer>
+    </div>
+    <script>
+      try {
+        const s = JSON.parse(localStorage.getItem("nines-sudoku-v1") || "{}");
+        document.documentElement.dataset.theme = s.settings?.darkMode ? "dark" : "light";
+      } catch (e) {}
+    </script>
+  </body>
+</html>

@@ -4,6 +4,11 @@ A free in-browser Sudoku game in the spirit of [sudoku.com](https://sudoku.com):
 
 **Live:** [https://soduku.net](https://soduku.net) (Cloudflare Pages, account `tim@timli.net`)
 
+- Play: [soduku.net](https://soduku.net)
+- Print: [soduku.net/printable](https://soduku.net/printable)
+- Solver: [soduku.net/solver](https://soduku.net/solver)
+- How to play: [soduku.net/how-to-play](https://soduku.net/how-to-play)
+
 No account. No build step. Every puzzle is generated in the browser and checked for a unique solution.
 
 ## Run it locally

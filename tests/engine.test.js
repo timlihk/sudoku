@@ -3,6 +3,7 @@ import {
   generateComplete,
   generatePuzzle,
   generateDaily,
+  generateDailySet,
   countSolutions,
   isValidComplete,
   isSolved,
@@ -10,6 +11,10 @@ import {
   findHint,
   mulberry32,
   clueCount,
+  parsePuzzle,
+  serializePuzzle,
+  solveGrid,
+  nextStep,
   DIFFICULTIES,
 } from "../js/engine.js";
 
@@ -42,5 +47,23 @@ const hint = findHint(easy.puzzle, easy.solution);
 assert.ok(hint, "easy puzzles expose a hint");
 assert.equal(hint.n, easy.solution[hint.r][hint.c]);
 assert.ok(candidates(easy.puzzle, hint.r, hint.c).includes(hint.n));
+
+const parsed = parsePuzzle("530070000600195000098000060800060003400803001700020006060000280000419005000080079");
+assert.ok(parsed.grid, parsed.error);
+const solved = solveGrid(parsed.grid);
+assert.equal(solved.status, "unique");
+assert.equal(serializePuzzle(parsed.grid).replace(/0/g, ".").length, 81);
+const step = nextStep(parsed.grid);
+assert.ok(step.technique);
+assert.ok(step.n >= 1 && step.n <= 9);
+
+const set = generateDailySet(new Date("2026-08-28T12:00:00"));
+assert.equal(set.length, 5);
+assert.equal(set[0].dateKey, "2026-08-28");
+assert.equal(countSolutions(set[0].puzzle, 2), 1);
+assert.equal(countSolutions(set[4].puzzle, 2), 1);
+
+const bad = parsePuzzle("1234");
+assert.ok(bad.error);
 
 console.log("engine tests passed");

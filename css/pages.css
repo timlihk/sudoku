@@ -1,0 +1,257 @@
+.ink-board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  padding: 2px;
+  background: #1a1714;
+  border-radius: 4px;
+  aspect-ratio: 1;
+  width: 100%;
+}
+
+.ink-box {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: #c8c0b2;
+}
+
+.ink-cell {
+  background: #fff;
+  display: grid;
+  place-items: center;
+  font-variant-numeric: tabular-nums;
+  font-weight: 650;
+  font-size: clamp(12px, 2.4vw, 22px);
+  color: #1a1714;
+  min-height: 0;
+}
+
+.ink-cell.is-answer {
+  color: #5c564e;
+  font-weight: 500;
+}
+
+.paper {
+  background: #fff;
+  color: #1a1714;
+  box-shadow: var(--shadow);
+  border-radius: 4px;
+  margin: 0 auto 28px;
+  padding: 14mm 14mm 12mm;
+  width: min(100%, 210mm);
+  min-height: 297mm;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+html[data-paper="letter"] .paper {
+  width: min(100%, 8.5in);
+  min-height: 11in;
+}
+
+.paper-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  border-bottom: 1.5px solid #1a1714;
+  padding-bottom: 8px;
+}
+
+.paper-brand {
+  font-family: var(--font-display);
+  font-size: 22px;
+  letter-spacing: -0.04em;
+}
+
+.paper-brand em {
+  font-style: italic;
+  color: #0f6e63;
+}
+
+.paper-meta {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6f675e;
+}
+
+.paper-puzzles {
+  display: grid;
+  gap: 16px 20px;
+  flex: 1;
+  align-content: start;
+}
+
+.paper[data-per="1"] .paper-puzzles {
+  grid-template-columns: 1fr;
+  max-width: 150mm;
+  margin: 12px auto 0;
+  width: 100%;
+}
+
+.paper[data-per="2"] .paper-puzzles {
+  grid-template-columns: 1fr;
+  max-width: 130mm;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.paper[data-per="4"] .paper-puzzles,
+.paper[data-per="6"] .paper-puzzles {
+  grid-template-columns: 1fr 1fr;
+}
+
+.paper-card h3 {
+  margin: 0 0 8px;
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.paper-card p {
+  margin: 6px 0 0;
+  font-size: 11px;
+  color: #6f675e;
+}
+
+.paper[data-per="1"] .ink-cell {
+  font-size: clamp(18px, 4.2vw, 32px);
+}
+
+.paper.answers .paper-brand em {
+  color: #1a1714;
+}
+
+.studio-note {
+  color: var(--muted);
+  margin: 0 0 18px;
+}
+
+.solver-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 36px;
+  align-items: start;
+}
+
+.solver-board-wrap {
+  width: var(--board);
+}
+
+.solver-status {
+  min-height: 1.4em;
+  color: var(--muted);
+  margin: 0 0 12px;
+  max-width: var(--board);
+}
+
+.solver-status.is-ok {
+  color: var(--ok);
+}
+
+.solver-status.is-bad {
+  color: var(--error);
+}
+
+.step-log {
+  list-style: none;
+  margin: 16px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+  max-height: 420px;
+  overflow: auto;
+}
+
+.step-log li {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 10px 12px;
+}
+
+.step-log b {
+  display: block;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+  margin-bottom: 2px;
+}
+
+.step-log span {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.paste {
+  width: 100%;
+  min-height: 74px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  color: inherit;
+  padding: 10px 12px;
+  resize: vertical;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.guide {
+  max-width: 720px;
+}
+
+.guide h2 {
+  font-family: var(--font-display);
+  font-size: 28px;
+  margin: 36px 0 8px;
+}
+
+.guide h3 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  margin: 28px 0 8px;
+}
+
+.guide p,
+.guide li {
+  color: color-mix(in srgb, var(--ink) 78%, var(--muted));
+}
+
+.tech-grid {
+  display: grid;
+  gap: 12px;
+  margin: 16px 0 8px;
+}
+
+.tech {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+}
+
+.tech h3 {
+  margin: 0 0 6px;
+}
+
+.tech p {
+  margin: 0;
+}
+
+@media (max-width: 920px) {
+  .solver-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .paper {
+    padding: 12px;
+    min-height: 0;
+  }
+}

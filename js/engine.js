@@ -100,6 +100,15 @@ export function mulberry32(seed) {
   };
 }
 
+export function hashSeed(str) {
+  let h = 2166136261;
+  for (let i = 0; i < String(str).length; i++) {
+    h ^= String(str).charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return h >>> 0;
+}
+
 /**
  * A known-valid completed Sudoku, then band/stack/digit/transpose shuffles.
  * Always produces a legal completed grid.
@@ -300,6 +309,19 @@ export function generateDaily(date = new Date()) {
   return result;
 }
 
+export const PRINT_DIFFICULTIES = ["easy", "medium", "hard", "expert", "master"];
+
+export function generateDailySet(date = new Date()) {
+  const key = dateKey(date);
+  return PRINT_DIFFICULTIES.map((id, i) => {
+    const pack = generatePuzzle(id, mulberry32(hashSeed(`${key}:print:${id}`)));
+    pack.dateKey = key;
+    pack.index = i + 1;
+    pack.daily = true;
+    return pack;
+  });
+}
+
 export function candidates(grid, r, c) {
   if (grid[r][c]) return [];
   const used = new Set();
@@ -349,23 +371,7 @@ export function conflictCells(grid) {
   return bad;
 }
 
-export function findHint(grid, solution) {
-  for (let r = 0; r < 9; r++) {
-    for (let c = 0; c < 9; c++) {
-      if (grid[r][c]) continue;
-      const cand = candidates(grid, r, c);
-      if (cand.length === 1) {
-        return {
-          r,
-          c,
-          n: cand[0],
-          technique: "Naked single",
-          why: `This cell can only be ${cand[0]} — every other digit already appears in its row, column, or box.`,
-        };
-      }
-    }
-  }
-
+function unitsOf() {
   const units = [];
   for (let r = 0; r < 9; r++) {
     units.push({
@@ -388,8 +394,27 @@ export function findHint(grid, solution) {
     }
     units.push({ name: `box ${b + 1}`, cells });
   }
+  return units;
+}
 
-  for (const unit of units) {
+export function findLogicalHint(grid) {
+  for (let r = 0; r < 9; r++) {
+    for (let c = 0; c < 9; c++) {
+      if (grid[r][c]) continue;
+      const cand = candidates(grid, r, c);
+      if (cand.length === 1) {
+        return {
+          r,
+          c,
+          n: cand[0],
+          technique: "Naked single",
+          why: `This cell can only be ${cand[0]} — every other digit already appears in its row, column, or box.`,
+        };
+      }
+    }
+  }
+
+  for (const unit of unitsOf()) {
     for (const d of DIGITS) {
       if (unit.cells.some(([r, c]) => grid[r][c] === d)) continue;
       const spots = unit.cells.filter(
@@ -407,7 +432,13 @@ export function findHint(grid, solution) {
       }
     }
   }
+  return null;
+}
 
+export function findHint(grid, solution) {
+  const logical = findLogicalHint(grid);
+  if (logical) return logical;
+  if (!solution) return null;
   for (let r = 0; r < 9; r++) {
     for (let c = 0; c < 9; c++) {
       if (!grid[r][c]) {
@@ -422,6 +453,122 @@ export function findHint(grid, solution) {
     }
   }
   return null;
+}
+
+function assignSolution(grid) {
+  const rows = new Uint16Array(9);
+  const cols = new Uint16Array(9);
+  const boxes = new Uint16Array(9);
+  const empties = [];
+
+  for (let r = 0; r < 9; r++) {
+    for (let c = 0; c < 9; c++) {
+      const v = grid[r][c];
+      if (v) {
+        const bit = 1 << v;
+        const b = boxIndex(r, c);
+        if (rows[r] & bit || cols[c] & bit || boxes[b] & bit) return false;
+        rows[r] |= bit;
+        cols[c] |= bit;
+        boxes[b] |= bit;
+      } else {
+        empties.push(r * 9 + c);
+      }
+    }
+  }
+
+  function dfs() {
+    if (empties.length === 0) return true;
+    let bestK = 0;
+    let bestMask = 0;
+    let bestBits = 10;
+    let bestPos = 0;
+    for (let k = 0; k < empties.length; k++) {
+      const pos = empties[k];
+      const r = (pos / 9) | 0;
+      const c = pos % 9;
+      const mask = ALL_BITS & ~(rows[r] | cols[c] | boxes[boxIndex(r, c)]);
+      const bits = popcount(mask);
+      if (bits < bestBits) {
+        bestBits = bits;
+        bestMask = mask;
+        bestK = k;
+        bestPos = pos;
+        if (bits <= 1) break;
+      }
+    }
+    if (bestBits === 0) return false;
+    empties.splice(bestK, 1);
+    const r = (bestPos / 9) | 0;
+    const c = bestPos % 9;
+    const b = boxIndex(r, c);
+    let mask = bestMask;
+    while (mask) {
+      const bit = mask & -mask;
+      mask ^= bit;
+      const d = 31 - Math.clz32(bit);
+      grid[r][c] = d;
+      rows[r] |= bit;
+      cols[c] |= bit;
+      boxes[b] |= bit;
+      if (dfs()) return true;
+      grid[r][c] = 0;
+      rows[r] ^= bit;
+      cols[c] ^= bit;
+      boxes[b] ^= bit;
+    }
+    empties.splice(bestK, 0, bestPos);
+    return false;
+  }
+
+  return dfs();
+}
+
+export function solveGrid(grid) {
+  const n = countSolutions(grid, 2);
+  if (n === 0) return { status: "none", count: 0 };
+  if (n > 1) return { status: "multiple", count: 2 };
+  const solution = cloneGrid(grid);
+  if (!assignSolution(solution)) return { status: "none", count: 0 };
+  return { status: "unique", count: 1, solution };
+}
+
+export function nextStep(grid) {
+  const logical = findLogicalHint(grid);
+  if (logical) return { ...logical, kind: "logic" };
+  const solved = solveGrid(grid);
+  if (solved.status === "none") return { error: "This grid has no solution." };
+  if (solved.status === "multiple") {
+    return { error: "More than one solution — add another clue." };
+  }
+  const reveal = findHint(grid, solved.solution);
+  if (!reveal) return { done: true, solution: solved.solution };
+  return { ...reveal, kind: "search", solution: solved.solution };
+}
+
+export function parsePuzzle(text) {
+  const chars = String(text || "")
+    .replace(/[^0-9.]/g, "")
+    .replace(/\./g, "0");
+  if (chars.length !== 81) {
+    return { error: `Need 81 cells (use 0 or . for empty). Got ${chars.length}.` };
+  }
+  const grid = emptyGrid();
+  for (let i = 0; i < 81; i++) {
+    const n = Number(chars[i]);
+    grid[(i / 9) | 0][i % 9] = n >= 1 && n <= 9 ? n : 0;
+  }
+  const conflicts = conflictCells(grid);
+  if (conflicts.size) {
+    return { error: "These clues break Sudoku rules — a digit repeats in a house.", grid, conflicts };
+  }
+  return { grid };
+}
+
+export function serializePuzzle(grid) {
+  return flatten(grid)
+    .map((n) => (n ? String(n) : "."))
+    .join("");
 }
 
 export function isSolved(grid, solution) {
