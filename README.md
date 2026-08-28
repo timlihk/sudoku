@@ -9,7 +9,20 @@ A free in-browser Sudoku game in the spirit of [sudoku.com](https://sudoku.com):
 - Solver: [soduku.net/solver](https://soduku.net/solver)
 - How to play: [soduku.net/how-to-play](https://soduku.net/how-to-play)
 
-No account. No build step. Every puzzle is generated in the browser and checked for a unique solution.
+No signup. Every puzzle is generated in the browser and checked for a unique solution.
+
+## Ads (classic display only)
+
+Slots are Google AdSense **display units** in the usual IAB places: a 728×90 leaderboard above the board, a 300×250 in the right rail, a 728×90 under the game, and a 300×250 under the keypad on phones. No Auto ads, overlays, anchors, or rewarded video.
+
+Fill `js/ads-config.js` after the AdSense site is approved:
+
+1. Apply at [google.com/adsense](https://www.google.com/adsense) with `soduku.net`
+2. Paste `ca-pub-…` into `ADSENSE_CLIENT`
+3. Create four Display units (728×90, 300×250, 728×90, 300×250) and paste the slot IDs
+4. `./deploy.sh` — writes `ads.txt` from the publisher ID
+
+Until those IDs are set, the frames stay empty so the layout does not jump.
 
 ## Run it locally
 

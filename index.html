@@ -88,6 +88,11 @@
         </nav>
       </header>
 
+      <aside class="ad-unit ad-leaderboard ad-top no-print" aria-label="Advertisement">
+        <span class="ad-kicker">Advertisement</span>
+        <div class="ad-frame" data-ad="leaderboard"></div>
+      </aside>
+
       <div class="layout">
         <section class="play" aria-label="Sudoku board">
           <div class="play-meta">
@@ -145,6 +150,10 @@
             <div class="pad" id="pad"></div>
             <div class="hint-toast" id="hint-toast" role="status"></div>
           </div>
+          <aside class="ad-unit ad-box ad-mobile no-print" aria-label="Advertisement">
+            <span class="ad-kicker">Advertisement</span>
+            <div class="ad-frame" data-ad="mobile"></div>
+          </aside>
         </section>
 
         <aside class="side">
@@ -155,6 +164,10 @@
               <button class="primary" data-open="new">Start a puzzle</button>
             </div>
           </div>
+          <aside class="ad-unit ad-box no-print" aria-label="Advertisement">
+            <span class="ad-kicker">Advertisement</span>
+            <div class="ad-frame" data-ad="sidebar"></div>
+          </aside>
           <div class="card">
             <h2>Print</h2>
             <p>Five fresh puzzles every day, laid out for A4 or US Letter. Solutions on the last page if you want them.</p>
@@ -189,6 +202,11 @@
         </aside>
       </div>
 
+      <aside class="ad-unit ad-leaderboard ad-bottom no-print" aria-label="Advertisement">
+        <span class="ad-kicker">Advertisement</span>
+        <div class="ad-frame" data-ad="footer"></div>
+      </aside>
+
       <section class="how" id="about">
         <h2>Play free Sudoku now</h2>
         <p>
@@ -219,7 +237,7 @@
       </section>
 
       <footer class="site-foot">
-        <p>soduku.net — free Sudoku. No ads, no account.</p>
+        <p>soduku.net — free Sudoku.</p>
         <p>
           <a href="./">Play</a> ·
           <a href="./printable.html">Print</a> ·
@@ -321,6 +339,7 @@
       </div>
     </div>
 
+    <script type="module" src="./js/ads.js"></script>
     <script type="module" src="./js/app.js"></script>
   </body>
 </html>

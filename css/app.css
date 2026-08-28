@@ -206,6 +206,50 @@ html[data-theme="dark"] .primary {
   color: #082824;
 }
 
+.ad-unit {
+  margin: 18px 0;
+}
+
+.ad-kicker {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+  text-align: center;
+}
+
+.ad-unit.ad-box .ad-kicker {
+  text-align: left;
+}
+
+.ad-frame {
+  margin: 0 auto;
+  background: color-mix(in srgb, var(--surface) 78%, var(--bg-2));
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.ad-leaderboard .ad-frame {
+  width: min(728px, 100%);
+  min-height: 90px;
+}
+
+.ad-box .ad-frame {
+  width: min(300px, 100%);
+  min-height: 250px;
+}
+
+.ad-mobile {
+  display: none;
+}
+
+.ad-unit.is-live .ad-frame {
+  background: transparent;
+  border-color: transparent;
+}
+
 .layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 300px;
@@ -868,6 +912,21 @@ html[data-theme="dark"] .primary {
 }
 
 @media (max-width: 640px) {
+  .ad-top {
+    display: none;
+  }
+
+  .ad-mobile {
+    display: block;
+    max-width: var(--board);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .side .ad-unit.ad-box {
+    display: none;
+  }
+
   .app {
     padding: 0 12px 40px;
   }

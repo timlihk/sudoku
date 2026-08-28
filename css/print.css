@@ -15,7 +15,8 @@ html[data-paper="letter"] @page {
   size: letter;
 }
 
-.no-print {
+.no-print,
+.ad-unit {
   display: none !important;
 }
 
