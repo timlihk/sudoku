@@ -207,7 +207,12 @@ html[data-theme="dark"] .primary {
 }
 
 .ad-unit {
+  display: none;
   margin: 18px 0;
+}
+
+.ad-unit.is-live {
+  display: block;
 }
 
 .ad-kicker {
@@ -913,10 +918,10 @@ html[data-theme="dark"] .primary {
 
 @media (max-width: 640px) {
   .ad-top {
-    display: none;
+    display: none !important;
   }
 
-  .ad-mobile {
+  .ad-unit.is-live.ad-mobile {
     display: block;
     max-width: var(--board);
     margin-left: auto;
@@ -924,7 +929,7 @@ html[data-theme="dark"] .primary {
   }
 
   .side .ad-unit.ad-box {
-    display: none;
+    display: none !important;
   }
 
   .app {
