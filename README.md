@@ -2,18 +2,26 @@
 
 A free in-browser Sudoku game in the spirit of [sudoku.com](https://sudoku.com): a 9×9 board, six difficulties, pencil notes, a three-mistake limit, hints that name the technique, a daily puzzle, and local stats.
 
+**Live:** [https://soduku.net](https://soduku.net) (Cloudflare Pages, account `tim@timli.net`)
+
 No account. No build step. Every puzzle is generated in the browser and checked for a unique solution.
 
-## Run it
+## Run it locally
 
 ```bash
-cd Code/sudoku
+cd ~/Code/sudoku
 python3 -m http.server 8765
 ```
 
-Open [http://localhost:8765](http://localhost:8765).
+Open [http://localhost:8765](http://localhost:8765). Or: `npm start`.
 
-Or: `npm start`.
+## Deploy
+
+```bash
+./deploy.sh
+```
+
+That stages the static files and runs `wrangler pages deploy` to the `soduku` Pages project, which is bound to `soduku.net` and `www.soduku.net`.
 
 ## What’s in here
 
