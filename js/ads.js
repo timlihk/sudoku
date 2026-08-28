@@ -33,8 +33,10 @@ function boot() {
     document.head.appendChild(meta);
   }
 
-  if (document.querySelector("script[data-adsense]")) {
-    fill();
+  const existing = document.querySelector('script[src*="pagead2.googlesyndication.com"]');
+  if (existing) {
+    if (window.adsbygoogle) fill();
+    else existing.addEventListener("load", fill);
     return;
   }
   const script = document.createElement("script");

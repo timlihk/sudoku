@@ -11,18 +11,15 @@ A free in-browser Sudoku game in the spirit of [sudoku.com](https://sudoku.com):
 
 No signup. Every puzzle is generated in the browser and checked for a unique solution.
 
-## Ads (classic display only)
+## Ads
 
-Slots are Google AdSense **display units** in the usual IAB places: a 728×90 leaderboard above the board, a 300×250 in the right rail, a 728×90 under the game, and a 300×250 under the keypad on phones. No Auto ads, overlays, anchors, or rewarded video.
+Publisher `ca-pub-6869218428296242`. Live:
 
-Fill `js/ads-config.js` after the AdSense site is approved:
+- `https://soduku.net/ads.txt`
+- `<meta name="google-adsense-account">` and the AdSense script on every page
+- Classic IAB frames (728×90 / 300×250). Pin them with Display unit slot IDs in `js/ads-config.js` if you want those boxes to fill instead of Auto ads.
 
-1. Apply at [google.com/adsense](https://www.google.com/adsense) with `soduku.net`
-2. Paste `ca-pub-…` into `ADSENSE_CLIENT`
-3. Create four Display units (728×90, 300×250, 728×90, 300×250) and paste the slot IDs
-4. `./deploy.sh` — writes `ads.txt` from the publisher ID
-
-Until those IDs are set, the frames stay empty so the layout does not jump.
+In AdSense → Ads → Auto ads, turn **off** overlays, anchors, and vignettes so only in-page display remains.
 
 ## Run it locally
 
