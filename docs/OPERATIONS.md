@@ -55,7 +55,7 @@ Local preview: `python3 -m http.server 8765` or `npm start`. Tests: `npm test`.
 | Nameservers | `eve.ns.cloudflare.com`, `vasilii.ns.cloudflare.com` |
 | Pages project | `soduku` |
 | Wrangler | OAuth in `~/.wrangler/config/default.toml` (user tim@timli.net, `pages:write`) |
-| DNS token | `~/.cloudflared/cf-dns-edit-token` (same value as `cf-api-token`) — Zone:Read + DNS:Edit |
+| DNS token | `~/.cloudflared/cf-api-token` — Zone:Read + DNS:Edit (the duplicate `cf-dns-edit-token` file was deleted 2026-10-18) |
 
 DNS (proxied CNAMEs):
 
